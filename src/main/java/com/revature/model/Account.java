@@ -2,20 +2,27 @@ package com.revature.model;
 
 public class Account {
 	
-	private double amount;
 	private int accountId;
 	private Status accountStatus;
+	private AccountType accountType;
+	private double balance;
 	
-	public Account() {
-		// TODO Auto-generated constructor stub
+	public Account() {}
+
+	public Account(int accountId, Status accountStatus, AccountType accountType, double balance) {
+		super();
+		this.accountId = accountId;
+		this.accountStatus = accountStatus;
+		this.accountType = accountType;
+		this.balance = balance;
 	}
 
-	public double getAmount() {
-		return amount;
+	public double getBalance() {
+		return balance;
 	}
 
-	public void setAmount(double amount) {
-		this.amount = amount;
+	public void setBalance(double balance) {
+		this.balance = balance;
 	}
 
 	public int getAccountId() {
@@ -32,6 +39,14 @@ public class Account {
 
 	public void setAccountStatus(Status accountStatus) {
 		this.accountStatus = accountStatus;
+	}
+
+	public AccountType getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(AccountType accountType) {
+		this.accountType = accountType;
 	}
 	
 	

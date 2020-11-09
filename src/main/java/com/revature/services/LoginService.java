@@ -2,20 +2,26 @@ package com.revature.services;
 
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
+import com.revature.model.User;
 import com.revature.repositories.LoginDAO;
 import com.revature.repositories.impl.LoginDAOImpl;
 
+
 public class LoginService {
 	
-	LoginDAO login = null;
+	public LoginDAO login = null;
+	
+	private static final Logger log = Logger.getLogger(LoginService.class);
 	
 	public LoginService() {
 		login = new LoginDAOImpl();
 	}
 	
 	public boolean login() {
-		System.out.println("Welcome to RomanEmp MIM Banking.\n\n");
-		System.out.println("1 - Register\n2 - User Login\n3 - Employee Login\n4 - Admin Login");
+		System.out.println("Welcome to RomanEmp MIM Banking.\n\n");	//TODO make this pretty.
+		System.out.println("1 - Register\n2 - Login");
 		
 		Scanner sc = new Scanner(System.in);
 		
@@ -28,12 +34,6 @@ public class LoginService {
 			case 2:
 				loginUser();
 				break;
-			case 3:
-				loginEmployee();
-				break;
-			case 4:
-				loginAdmin();
-				break;
 		}
 		
 		return false;
@@ -44,15 +44,40 @@ public class LoginService {
 	}
 	
 	public boolean loginUser() {
-		return false;
-	}
-	
-	public boolean loginEmployee() {
-		return false;
-	}
-	
-	public boolean loginAdmin() {
-		return false;
+		
+		System.out.println("Welcome!\nPlease enter your username and password.");
+		
+		Scanner sc = new Scanner(System.in);
+		User user = new User();
+		
+		System.out.print("Username: ");
+		user.setUsername(sc.nextLine());
+		System.out.print("Password: ");
+		user.setPassword(sc.nextLine());
+		
+		if(login.loginUser(user)) {
+			System.out.println();	//just to make some space between this and the last.
+			log.info(user.getUsername()+" successfully logged in!\n");
+		}else {
+			
+			//give the chance to try again.
+			System.out.println("Would you like to try again? Y/n");
+			String tryAgain = sc.nextLine();
+			
+			if(tryAgain.equalsIgnoreCase("y")) {
+				loginUser();
+			}else {
+				//if denied, abort the program.
+				return false;
+			}
+		}
+		
+		if(user.getRoleId()==1) {
+			AdminService adminLog = new AdminService();
+			adminLog.AdminLogin(user);
+		}
+		
+		return true;
 	}
 
 }

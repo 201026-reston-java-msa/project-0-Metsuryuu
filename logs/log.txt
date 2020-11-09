@@ -1,0 +1,182 @@
+2020-11-07 14:19:24 WARN  LoginService:47 - Warning works
+2020-11-07 14:19:24 INFO  LoginService:48 - Welcome!
+Please enter your username and password.
+2020-11-07 14:19:24 INFO  LoginService:53 - Username: 
+2020-11-07 14:20:34 INFO  LoginService:55 - Password: 
+2020-11-07 14:22:24 WARN  LoginService:47 - Warning works
+2020-11-07 14:22:24 INFO  LoginService:48 - Welcome!
+Please enter your username and password.
+2020-11-07 14:22:24 INFO  LoginService:53 - Username: 
+2020-11-07 14:22:27 INFO  LoginService:55 - Password: 
+2020-11-07 14:22:30 INFO  LoginService:59 - Successfully logged in!
+2020-11-07 14:23:35 WARN  LoginService:47 - Warning works
+2020-11-07 14:23:35 INFO  LoginService:48 - Welcome!
+Please enter your username and password.
+2020-11-07 14:23:43 INFO  LoginService:59 - Successfully logged in!
+2020-11-07 14:26:19 WARN  LoginService:47 - Warning works
+2020-11-07 14:26:19 INFO  LoginService:48 - Welcome!
+Please enter your username and password.
+2020-11-07 14:26:24 WARN  LoginDAOImpl:57 - Login failed. Please try again.
+2020-11-07 14:33:25 WARN  LoginDAOImpl:57 - Login failed. Please try again.
+2020-11-07 14:33:35 WARN  LoginDAOImpl:57 - Login failed. Please try again.
+2020-11-07 14:34:12 WARN  LoginDAOImpl:57 - Login failed. Please try again.
+2020-11-07 14:34:18 INFO  LoginService:59 - Successfully logged in!
+2020-11-07 14:35:18 INFO  LoginService:59 - Successfully logged in!
+2020-11-07 20:51:41 WARN  LoginDAOImpl:57 - Login failed. Please try again.
+2020-11-07 20:52:01 INFO  LoginService:59 - Successfully logged in!
+2020-11-07 20:52:50 WARN  AdminDAOImpl:66 - Failed to find users, please wait and try again.
+org.postgresql.util.PSQLException: The column name userid was not found in this ResultSet.
+	at org.postgresql.jdbc.PgResultSet.findColumn(PgResultSet.java:2607)
+	at org.postgresql.jdbc.PgResultSet.getInt(PgResultSet.java:2498)
+	at com.revature.repositories.impl.AdminDAOImpl.findAll(AdminDAOImpl.java:51)
+	at com.revature.services.AdminService.AdminLogin(AdminService.java:40)
+	at com.revature.services.LoginService.loginUser(LoginService.java:77)
+	at com.revature.services.LoginService.loginUser(LoginService.java:68)
+	at com.revature.services.LoginService.login(LoginService.java:35)
+	at com.revature.Driver.run(Driver.java:17)
+	at com.revature.Driver.main(Driver.java:10)
+2020-11-07 20:55:27 INFO  LoginService:59 - Successfully logged in!
+2020-11-07 20:55:29 WARN  AdminDAOImpl:66 - Failed to find users, please wait and try again.
+org.postgresql.util.PSQLException: Bad value for type int : -6,nbonaparte,petitmignon,Napolean,Bonaparte,3
+	at org.postgresql.jdbc.PgResultSet.toInt(PgResultSet.java:2858)
+	at org.postgresql.jdbc.PgResultSet.getInt(PgResultSet.java:2067)
+	at com.revature.repositories.impl.AdminDAOImpl.findAll(AdminDAOImpl.java:51)
+	at com.revature.services.AdminService.AdminLogin(AdminService.java:40)
+	at com.revature.services.LoginService.loginUser(LoginService.java:77)
+	at com.revature.services.LoginService.login(LoginService.java:35)
+	at com.revature.Driver.run(Driver.java:17)
+	at com.revature.Driver.main(Driver.java:10)
+2020-11-08 00:16:59 INFO  LoginService:59 - Successfully logged in!
+2020-11-08 00:17:53 INFO  LoginService:59 - Successfully logged in!
+2020-11-08 15:57:36 INFO  LoginService:59 - Successfully logged in!
+2020-11-08 15:59:00 INFO  LoginService:59 - Successfully logged in!
+2020-11-08 16:05:47 INFO  LoginService:59 - Successfully logged in!
+2020-11-08 16:08:09 INFO  LoginService:59 - qroman successfully logged in!
+2020-11-08 16:10:46 INFO  LoginService:59 - 
+qroman successfully logged in!
+2020-11-08 16:11:34 INFO  LoginService:60 - qroman successfully logged in!
+2020-11-08 16:12:25 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-08 16:16:21 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-08 16:16:31 WARN  AdminDAOImpl:68 - Failed to find users, please wait and try again.
+org.postgresql.util.PSQLException: The column name userid was not found in this ResultSet.
+	at org.postgresql.jdbc.PgResultSet.findColumn(PgResultSet.java:2607)
+	at org.postgresql.jdbc.PgResultSet.getInt(PgResultSet.java:2498)
+	at com.revature.repositories.impl.AdminDAOImpl.findAll(AdminDAOImpl.java:51)
+	at com.revature.services.AdminService.AdminLogin(AdminService.java:47)
+	at com.revature.services.LoginService.loginUser(LoginService.java:77)
+	at com.revature.services.LoginService.login(LoginService.java:35)
+	at com.revature.Driver.run(Driver.java:17)
+	at com.revature.Driver.main(Driver.java:10)
+2020-11-08 16:17:07 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-08 16:21:19 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-08 16:31:48 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-08 16:33:13 WARN  LoginDAOImpl:57 - Login failed. Please try again.
+2020-11-08 16:33:32 INFO  LoginService:60 - jcaesar successfully logged in!
+
+2020-11-08 16:34:13 WARN  LoginDAOImpl:57 - Login failed. Please try again.
+2020-11-08 16:38:21 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-08 17:05:49 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-08 17:06:43 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-08 17:06:45 WARN  AdminDAOImpl:117 - Failed to find users, please wait and try again.
+org.postgresql.util.PSQLException: ERROR: relation "project0.get_all_accounts" does not exist
+  Position: 15
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2505)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2241)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:310)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:447)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:368)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:158)
+	at org.postgresql.jdbc.PgCallableStatement.executeWithFlags(PgCallableStatement.java:77)
+	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:108)
+	at com.revature.repositories.impl.AdminDAOImpl.findAllAccounts(AdminDAOImpl.java:91)
+	at com.revature.services.AdminService.AdminLogin(AdminService.java:54)
+	at com.revature.services.LoginService.loginUser(LoginService.java:77)
+	at com.revature.services.LoginService.login(LoginService.java:35)
+	at com.revature.Driver.run(Driver.java:17)
+	at com.revature.Driver.main(Driver.java:10)
+2020-11-08 17:07:30 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-08 17:09:35 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-08 18:29:56 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-08 18:30:24 WARN  AdminDAOImpl:189 - Withdraw failed, please try again.
+org.postgresql.util.PSQLException: ERROR: function project0.withdraw(integer, double precision) does not exist
+  Hint: No function matches the given name and argument types. You might need to add explicit type casts.
+  Position: 15
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2505)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2241)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:310)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:447)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:368)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:158)
+	at org.postgresql.jdbc.PgCallableStatement.executeWithFlags(PgCallableStatement.java:77)
+	at org.postgresql.jdbc.PgPreparedStatement.execute(PgPreparedStatement.java:147)
+	at com.revature.repositories.impl.AdminDAOImpl.withdraw(AdminDAOImpl.java:146)
+	at com.revature.services.AdminService.AdminLogin(AdminService.java:59)
+	at com.revature.services.LoginService.loginUser(LoginService.java:77)
+	at com.revature.services.LoginService.login(LoginService.java:35)
+	at com.revature.Driver.run(Driver.java:17)
+	at com.revature.Driver.main(Driver.java:10)
+2020-11-08 18:34:31 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-08 18:34:41 WARN  AdminDAOImpl:191 - Withdraw failed, please try again.
+org.postgresql.util.PSQLException: ERROR: project0.withdraw(integer, numeric) is a procedure
+  Hint: To call a procedure, use CALL.
+  Position: 15
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2505)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2241)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:310)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:447)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:368)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:158)
+	at org.postgresql.jdbc.PgCallableStatement.executeWithFlags(PgCallableStatement.java:77)
+	at org.postgresql.jdbc.PgPreparedStatement.execute(PgPreparedStatement.java:147)
+	at com.revature.repositories.impl.AdminDAOImpl.withdraw(AdminDAOImpl.java:148)
+	at com.revature.services.AdminService.AdminLogin(AdminService.java:59)
+	at com.revature.services.LoginService.loginUser(LoginService.java:77)
+	at com.revature.services.LoginService.login(LoginService.java:35)
+	at com.revature.Driver.run(Driver.java:17)
+	at com.revature.Driver.main(Driver.java:10)
+2020-11-08 18:36:09 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-08 18:36:13 WARN  AdminDAOImpl:191 - Withdraw failed, please try again.
+org.postgresql.util.PSQLException: ERROR: project0.withdraw(integer, numeric) is a procedure
+  Hint: To call a procedure, use CALL.
+  Position: 15
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2505)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2241)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:310)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:447)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:368)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:158)
+	at org.postgresql.jdbc.PgCallableStatement.executeWithFlags(PgCallableStatement.java:77)
+	at org.postgresql.jdbc.PgPreparedStatement.execute(PgPreparedStatement.java:147)
+	at com.revature.repositories.impl.AdminDAOImpl.withdraw(AdminDAOImpl.java:148)
+	at com.revature.services.AdminService.AdminLogin(AdminService.java:59)
+	at com.revature.services.LoginService.loginUser(LoginService.java:77)
+	at com.revature.services.LoginService.login(LoginService.java:35)
+	at com.revature.Driver.run(Driver.java:17)
+	at com.revature.Driver.main(Driver.java:10)
+2020-11-08 18:37:44 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-08 18:57:38 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-08 19:01:17 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-08 19:02:56 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-08 19:03:04 WARN  AdminDAOImpl:261 - Negative numerics are not accepted, please try again.
+2020-11-08 19:17:02 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-08 19:17:39 WARN  AdminDAOImpl:261 - Negative numerics are not accepted, please try again.
+2020-11-08 19:18:02 INFO  LoginService:60 - qroman successfully logged in!
+

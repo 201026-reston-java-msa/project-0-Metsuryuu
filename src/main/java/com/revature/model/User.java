@@ -7,10 +7,9 @@ public class User {
 	private String last_name;
 	private String username;
 	private String password;
-	private Account account;
+	private int roleId;
 	
 	public User() {}
-
 
 	public User(int userId, String first_name, String last_name, String username, String password) {
 		super();
@@ -72,17 +71,19 @@ public class User {
 	}
 
 
-	public Account getAccount() {
-		/*
-		 * TODO check to make sure this is their account.
-		 * This will probably be done in a DAO tho.
-		 */
-		return account;
+	public int getRoleId() {
+		return roleId;
 	}
 
 
-	public void setAccount(Account account) {
-		this.account = account;
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", first_name=" + first_name + ", last_name=" + last_name + ", username="
+				+ username + ", roleId=" + roleId + "]";
 	}	
 	
 
