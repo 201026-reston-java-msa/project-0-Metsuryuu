@@ -3,6 +3,8 @@ package com.revature.services;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import com.revature.model.User;
 import com.revature.repositories.AdminDAO;
 import com.revature.repositories.impl.AdminDAOImpl;
@@ -10,6 +12,8 @@ import com.revature.repositories.impl.AdminDAOImpl;
 public class AdminService {
 	
 	AdminDAO repository = null;
+	
+	private static final Logger log = Logger.getLogger(AdminService.class);
 	
 	public AdminService() {
 		repository = new AdminDAOImpl();
@@ -34,6 +38,13 @@ public class AdminService {
 			System.out.println("10 - Logout");
 			
 			Scanner sc = new Scanner(System.in);
+			try {
+				if(!sc.hasNextInt()) {
+					throw new NumberFormatException();
+				}
+				}catch(NumberFormatException e) {
+					log.warn("Only positive numerics are allowed.");
+				}
 			int key = sc.nextInt();
 		
 		
@@ -55,68 +66,54 @@ public class AdminService {
 					break;
 				case 5:
 					System.out.println("Enter the id of the account you wish to withdraw from...");
+					try {
+						if(!sc.hasNextInt()) {
+							throw new NumberFormatException();
+						}
+						}catch(NumberFormatException e) {
+							log.warn("Only positive numerics are allowed.");
+						}
 					int accountid = sc.nextInt();
 					repository.withdraw(accountid);
 					break;
 				case 6:
 					System.out.println("Enter the id of the account you wish to deposit into...");
+					try {
+						if(!sc.hasNextInt()) {
+							throw new NumberFormatException();
+						}
+						}catch(NumberFormatException e) {
+							log.warn("Only positive numerics are allowed.");
+						}
 					accountid = sc.nextInt();
 					repository.deposit(accountid);
 					break;
 				case 7:
 					System.out.println("Enter the id of the account to transfer funds from...");
+					try {
+						if(!sc.hasNextInt()) {
+							throw new NumberFormatException();
+						}
+						}catch(NumberFormatException e) {
+							log.warn("Only positive numerics are allowed.");
+						}
 					accountid = sc.nextInt();
 					repository.transfer(accountid);
 					break;
 				case 8:
+					repository.pendingChoice();
 					break;
 				case 9:
+					repository.cancel();
 					break;
 				case 10:
 					admin = null;	//remove the user before logging out.
 					break;
 			}
 			if(key == 10) {	
-				sc.close();
 				return false;					
 			}
 		}
 }
-	
-	public List<User> findAll(){	//TODO might need to switch to Account.
-		//TODO return all users.
-		return null;
-	}
-	
-	public User findById(int id) {
-		//TODO find users by id number.
-		return null;
-	}
-	
-	public boolean insert(User u) {
-		//insert the user.
-		return false;
-	}
-	
-	public boolean update(User u) {
-		//update the fields in user based on id.
-		return false;
-	}
-	
-	public boolean withdraw(double amount, User u) {
-		return false;
-	}
-	
-	public boolean deposit(double amount, User u) {
-		return false;
-	}
-	
-	public boolean cancel(User u) {
-		return false;
-	}
-	
-	public boolean transfer(double amount, User u, User other) {
-		return false;
-	}
 
 }

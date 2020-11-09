@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.security.auth.login.AccountException;
+
 import org.apache.log4j.Logger;
 
 import com.revature.Printer;
@@ -15,86 +18,43 @@ import com.revature.connection.ConnectionUtil;
 import com.revature.model.Account;
 import com.revature.model.AccountType;
 import com.revature.model.Status;
-import com.revature.model.User;
-import com.revature.repositories.AdminDAO;
+import com.revature.repositories.CustomerDAO;
 
-
-
-public class AdminDAOImpl implements AdminDAO{
-
-	private static final Logger log = Logger.getLogger(AdminDAOImpl.class);
+public class CustomerDAOImpl implements CustomerDAO{
 	
-	@Override
-	public boolean findAll(int key) {
+	private static final Logger log = Logger.getLogger(CustomerDAOImpl.class);
+	
+	private List<Account> ownedAccounts;
+	private int userid;
+	
+	public List<Account> getOwnedAccounts(int userid) {	
 		
-		List<User> userList = new ArrayList<>();
-		
-		try(Connection conn = ConnectionUtil.getConnection()){
-			
-			String sql = null;
-			
-			if(key == 1) {
-				//indicates search for customers.
-				sql = "Select * from project0.get_all_customers()";
-			}else if(key == 2) {
-				//search for employees.
-				sql = "Select * from project0.get_all_employees()";
-			}else if(key == 3) {
-				//search for admins.
-				sql = "Select * from project0.get_all_admins()";
-			}
-			
-			CallableStatement statement = conn.prepareCall(sql);
-			
-			ResultSet result = statement.executeQuery();	//As this is a select statement, executeQuery() works.
-			
-			while(result.next()) {
-				
-				User u = new User();
-				
-				u.setUserId(result.getInt("userid"));
-				u.setUsername(result.getString("username"));
-				u.setPassword(result.getString("pass"));
-				u.setFirst_name(result.getString("first_name"));
-				u.setLast_name(result.getString("last_name"));
-				u.setRoleId(result.getInt("roleid"));
-				
-				userList.add(u);
-				
-			}
-			
-			Printer print = new Printer();	//use the helper class for formatted printing functions.
-			if(print.printUserList(userList, key)) {
-				return true;
-			}
-			
-		}catch(SQLException e) {
-			log.warn("Failed to find users, please wait and try again.",e);
-			return false;
+		//If the list is empty, set the accounts.
+		if(this.ownedAccounts == null) {
+			getAccounts(userid);
+			this.userid = userid;
 		}
 		
-		return true;
+		return this.ownedAccounts;
 	}
 
-	@Override
-	public boolean findAllAccounts() {
+	public void getAccounts(int userid){
 		
-		List<Account> accountList = new ArrayList<>();
+		this.ownedAccounts = new ArrayList<Account>();
 		
 		try(Connection conn = ConnectionUtil.getConnection()){
 			
-			String sql = null;
+			String sql = "SELECT * FROM project0.get_owned_accounts(?)";
 			
-			sql = "Select * from project0.get_all_accounts()";
-						
 			CallableStatement statement = conn.prepareCall(sql);
 			
-			ResultSet result = statement.executeQuery();	
+			statement.setInt(1, userid);
+			ResultSet result = statement.executeQuery();
 			
 			while(result.next()) {
 				
+				//set each account to the ownedAccounts list.
 				Account a = new Account();
-				
 				a.setAccountId(result.getInt("accountid"));
 				
 				Status s = new Status(result.getInt("status"));
@@ -105,27 +65,38 @@ public class AdminDAOImpl implements AdminDAO{
 				
 				a.setBalance(result.getBigDecimal("balance").doubleValue());
 				
-				accountList.add(a);
-				
+				this.ownedAccounts.add(a);
 			}
 			
-			Printer print = new Printer();
-			if(print.printAccountList(accountList)) {
-				return true;
-			}
-			
-		}catch(SQLException e) {
-			log.warn("Failed to find accounts, please wait and try again.",e);
-			return false;
+		} catch (SQLException e) {
+			log.warn("Failed to find accounts. Please contact system admin.");
 		}
 		
-		return true;
 	}
-
+	
+	public boolean isOwned(int accountid) {
+		
+		boolean callPolice = true;	//this will make more sense later.
+		
+		for(Account a : ownedAccounts) {
+			if(a.getAccountId() == accountid) {
+				callPolice = false;
+			}
+		}
+		
+		//returns true if the account is not owned by that individual.
+		return callPolice;
+			
+	}
+	
 	@Override
-	public boolean withdraw(int id) {	//TODO Add the logger here, the standard logger works apparently.
-
+	public boolean withdraw(int id) {
+		
 		try(Connection conn = ConnectionUtil.getConnection()){
+			
+			if(isOwned(id)) {
+				throw new AccountException();
+			}
 			
 			Scanner sc = new Scanner(System.in);
 			System.out.println("How much would you like to withdraw?");
@@ -183,6 +154,8 @@ public class AdminDAOImpl implements AdminDAO{
 					return true;
 				}
 				
+				getAccounts(this.userid);
+				
 			}else {
 				//if the inputed amount happens to be negative, throw an exception.
 				throw new NumberFormatException();
@@ -192,6 +165,8 @@ public class AdminDAOImpl implements AdminDAO{
 			log.warn("Withdraw failed, please try again.", e);
 		}catch(NumberFormatException e) {
 			log.warn("Only positive numerics are accepted, please try again.");
+		}catch (AccountException e) {
+			log.warn("You do not own this account. You may only withdraw from your accounts.");
 		}
 		
 		return false;
@@ -202,6 +177,10 @@ public class AdminDAOImpl implements AdminDAO{
 		
 		try(Connection conn = ConnectionUtil.getConnection()){
 			
+			if(isOwned(id)) {
+				throw new AccountException();
+			}
+			
 			Scanner sc = new Scanner(System.in);
 			System.out.println("How much would you like to deposit?");
 			
@@ -211,7 +190,7 @@ public class AdminDAOImpl implements AdminDAO{
 			
 			double amount = sc.nextDouble();
 			
-			if(amount >= 0) {
+			if(amount >= 0) {	//check for negative numbers.
 				
 				String sql = "CALL project0.deposit(?,?)";
 			
@@ -259,28 +238,29 @@ public class AdminDAOImpl implements AdminDAO{
 				}
 				
 			}else {
+				//if the inputed amount happens to be negative, throw an exception.
 				throw new NumberFormatException();
 			}			
 			
 		}catch(SQLException e) {
-			log.warn("Deposit failed, please try again.", e);
+			log.warn("Withdraw failed, please try again.", e);
 		}catch(NumberFormatException e) {
 			log.warn("Only positive numerics are accepted, please try again.");
-			/*
-			 * Calling the function again here would truly allow the user to try again. 
-			 * For the sake of this program, I chose to make an improper input return to 
-			 * the choice selection in case the user did not want to deposit. The same is
-			 * true for the withdraw function above and all other exceptions.
-			 */
+		}catch (AccountException e) {
+			log.warn("You do not own this account. You may only deposit to your accounts.");
 		}
 		
 		return false;
 	}
-	
+
 	@Override
 	public boolean transfer(int id) {
 		
 		try(Connection conn = ConnectionUtil.getConnection()){
+			
+			if(isOwned(id)) {
+				throw new AccountException();
+			}
 			
 			Scanner sc = new Scanner(System.in);
 			
@@ -357,127 +337,9 @@ public class AdminDAOImpl implements AdminDAO{
 			log.warn("Transfer failed, please try again.", e);
 		}catch(NumberFormatException e) {
 			log.warn("Only positive numerics are accepted, please try again.");
+		} catch (AccountException e) {
+			log.warn("You may only transfer funds from one of your accounts.");
 		}
-		
-		return false;
-	}
-	
-	@Override
-	public boolean cancel() {
-		
-		/*
-		 * I took this to mean deleting an account, though it could easily be set to "Closed" as well.
-		 * In that case, the status would be changed to 3, which corresponds with "Closed" 
-		 */
-		
-		findAllAccounts();	//print out all the accounts for easier viewing.
-		
-		System.out.println("Enter the ID of the account that you would like to cancel...");
-		Scanner sc = new Scanner(System.in);
-		int id = sc.nextInt();
-		
-		try(Connection conn = ConnectionUtil.getConnection()){
-			String sql = "Call project0.deny_account(?)";	//this procedure removes the passed account.
-			
-			CallableStatement statement = conn.prepareCall(sql);
-			
-			statement.setInt(1, id);
-			statement.execute();
-			
-			System.out.println("The account with the ID "+id+" has been terminated.");
-			
-		} catch (SQLException e) {
-			log.warn("Cancellation failed. Please try again.");
-		}
-		
-		return true;
-	}
-
-	@Override
-	public boolean pendingChoice() {	//TODO make sure to test this after testing the register function.
-		
-		Scanner sc = new Scanner(System.in);
-		
-		try(Connection conn = ConnectionUtil.getConnection()){
-			
-			System.out.println("The following accounts are pending:");
-			
-			String sql = "Select accountid, typeid, balance from project0.accounts a, "
-					+"project0.account_status a2 Where a.status = a2.statusid AND a.status = 1";
-			
-			CallableStatement statement = conn.prepareCall(sql);
-			
-			ResultSet result = statement.executeQuery();	
-			
-			List<Account> accountList = new ArrayList<>();
-			
-			while(result.next()) {
-				
-				Account a = new Account();
-				a.setAccountId(result.getInt("accountid"));
-				
-				Status s = new Status(1);
-				a.setAccountStatus(s);
-				
-				AccountType at = new AccountType(result.getInt("typeid"));
-				a.setAccountType(at);
-				
-				a.setBalance(result.getBigDecimal("balance").doubleValue());
-				
-				accountList.add(a);
-				
-			}
-			
-			Printer print = new Printer();
-			print.printAccountList(accountList);
-			
-			//Check to see if any accounts would like to be approved or denied.
-			System.out.println("Would you like to act on any of these accounts? Y/n");
-			String choice = sc.nextLine();
-			
-			if(choice.equalsIgnoreCase("y")) {
-				
-				System.out.println("Enter the ID you would like to act on.");
-				int id = sc.nextInt();
-				System.out.println("Would you like to approve (1) or deny (0) this account?");
-				int apden = sc.nextInt();
-				
-				if(apden == 1) {
-					sql = "Call project0.approve_account(?)";
-				}else if(apden == 0) {
-					sql = "Call project0.deny_account(?)";
-				}else {
-					throw new NumberFormatException();
-				}
-				
-				statement = conn.prepareCall(sql);
-				
-				statement.setInt(1, id);
-				
-				statement.execute();
-				
-				System.out.println("The account status has been updated.\nWould you like to act on another account? Y/n");
-				choice = sc.next();
-				
-				if(choice.equalsIgnoreCase("y")) {
-					//call the function again and start from the top.
-					pendingChoice();
-				}else {
-					//return to the panel.
-					return true;
-				}
-				
-			}else {
-				//return to the AdminService panel.
-				return true;
-			}
-			
-		} catch (SQLException e) {
-			log.warn("Update failed, please try again later.");
-		}catch(NumberFormatException e) {
-			log.warn("Choice not valid, please try again.");
-		}
-		
 		
 		return false;
 	}

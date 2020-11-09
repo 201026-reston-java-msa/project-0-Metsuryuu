@@ -21,7 +21,7 @@ public class LoginService {
 	
 	public boolean login() {
 		System.out.println("Welcome to RomanEmp MIM Banking.\n\n");	//TODO make this pretty.
-		System.out.println("1 - Register\n2 - Login");
+		System.out.println("1 - Register\n2 - Login\n\nEnter Ctrl+Z to quit.");
 		
 		Scanner sc = new Scanner(System.in);
 		
@@ -40,6 +40,9 @@ public class LoginService {
 	}
 	
 	public boolean newAccount() {
+		
+		
+		
 		return false;
 	}
 	
@@ -75,6 +78,12 @@ public class LoginService {
 		if(user.getRoleId()==1) {
 			AdminService adminLog = new AdminService();
 			adminLog.AdminLogin(user);
+		}else if(user.getRoleId()==2) {
+			EmployeeService employeeLog = new EmployeeService();
+			employeeLog.EmployeeLogin(user);
+		}else if(user.getRoleId()==3) {
+			CustomerService customerLog = new CustomerService();
+			customerLog.CustomerLogin(user);
 		}
 		
 		return true;

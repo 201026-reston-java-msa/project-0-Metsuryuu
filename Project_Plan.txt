@@ -10,7 +10,8 @@ Leveraging Java 8, create an application that simulates simple banking transacti
     * [X]Stretch Goal: Customers should be able to apply for joint accounts
 *	[X]Once the account is open, customers should be able to withdraw, deposit, and transfer funds between accounts
     * All basic validation should be done, such as trying to input negative amounts, overdrawing from accounts etc. (Do in java program, the overdrawing is covered tho)
-	
+		(Could've completed using a CHECK restraint when making the table :/)
+		
 	--In the CustomerDAOImpl, make sure to pass the userId with the accountId obtained from Scanner. DO NOT ASK FOR THE USERID.
 	
 *	Employees of the bank should be able to view all of their customers information. This includes:

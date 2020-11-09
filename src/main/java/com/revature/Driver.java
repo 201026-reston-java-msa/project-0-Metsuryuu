@@ -1,13 +1,29 @@
 package com.revature;
 
+import java.util.NoSuchElementException;
+
+import org.apache.log4j.Logger;
+
+import com.revature.repositories.impl.LoginDAOImpl;
 import com.revature.services.LoginService;
 
 public class Driver {
 	
+	private static Logger log = Logger.getLogger(LoginDAOImpl.class);
+	
 	public static void main(String[] args) {
 		
 		//basically just call run.
-		run();
+		try {
+			while(true) {
+				run();
+			}
+		}catch(NoSuchElementException e) {
+			log.info("Terminating... Have a nice day.");
+			System.exit(0);
+		}
+		
+		
 		
 	}
 	
@@ -32,9 +48,6 @@ public class Driver {
 	 * The joint account should be simple, just have two people share an accountId in the database.
 	 * Have a condition within newAccount() that checks for joint account and send it to a different
 	 * function that accepts two usernames and two passwords.
-	 * 
-	 * Make sure to include exception handling to implement checks against negative numbers, overdrawing,
-	 * or invalid credentials.
 	 * 
 	 * Permissions will be implemented as each user type will have a different Service class. Have the
 	 * proper switch statements inside those.

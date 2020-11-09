@@ -7,6 +7,7 @@ public interface AdminDAO {
 	public boolean withdraw(int accountid);
 	public boolean deposit(int accountid);
 	public boolean transfer(int accountid);
-	public boolean cancel(int userid);	//remove the user account from db.
+	public boolean cancel();	//remove the user account from db.
+	public boolean pendingChoice();	//approve or deny pending accounts.
 
 }

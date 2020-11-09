@@ -180,3 +180,38 @@ org.postgresql.util.PSQLException: ERROR: project0.withdraw(integer, numeric) is
 2020-11-08 19:17:39 WARN  AdminDAOImpl:261 - Negative numerics are not accepted, please try again.
 2020-11-08 19:18:02 INFO  LoginService:60 - qroman successfully logged in!
 
+2020-11-08 21:35:13 INFO  LoginService:60 - qroman successfully logged in!
+
+2020-11-09 12:29:39 INFO  LoginService:60 - jdarc successfully logged in!
+
+2020-11-09 12:30:33 INFO  LoginService:60 - jdarc successfully logged in!
+
+2020-11-09 12:31:40 INFO  LoginService:60 - jdarc successfully logged in!
+
+2020-11-09 12:32:43 INFO  LoginService:60 - jdarc successfully logged in!
+
+2020-11-09 12:40:41 INFO  LoginService:60 - jdarc successfully logged in!
+
+2020-11-09 12:41:40 WARN  CustomerDAOImpl:162 - You do not own this account. You may only withdraw from your accounts.
+2020-11-09 12:43:10 INFO  LoginService:60 - jdarc successfully logged in!
+
+2020-11-09 12:47:33 INFO  LoginService:60 - jdarc successfully logged in!
+
+2020-11-09 14:12:03 INFO  LoginService:60 - jdarc successfully logged in!
+
+2020-11-09 14:16:15 INFO  LoginService:60 - jdarc successfully logged in!
+
+2020-11-09 14:22:26 INFO  LoginService:60 - jdarc successfully logged in!
+
+2020-11-09 14:22:33 WARN  CustomerDAOImpl:323 - You may only transfer funds from one of your accounts.
+2020-11-09 14:25:42 WARN  LoginDAOImpl:57 - Login failed. Please try again.
+2020-11-09 14:25:51 INFO  LoginService:60 - jdarc successfully logged in!
+
+2020-11-09 14:25:57 WARN  CustomerDAOImpl:167 - Negative numerics are not accepted, please try again.
+2020-11-09 16:15:03 INFO  LoginService:63 - qroman successfully logged in!
+
+2020-11-09 16:16:18 INFO  LoginService:63 - qroman successfully logged in!
+
+2020-11-09 16:18:38 INFO  LoginDAOImpl:24 - Terminating... Have a nice day.
+2020-11-09 16:19:59 INFO  LoginDAOImpl:24 - Terminating... Have a nice day.
+2020-11-09 16:20:45 INFO  LoginDAOImpl:24 - Terminating... Have a nice day.
