@@ -16,8 +16,6 @@ public class ConnectionUtil {
 	
 	public static Connection getConnection() {
 		
-		String url = "jdbc:postgresql://localhost:5432/";
-		
 		Connection conn = null;
 		Properties prop = new Properties();
 		
