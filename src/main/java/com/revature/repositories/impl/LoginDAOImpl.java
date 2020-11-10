@@ -18,12 +18,6 @@ public class LoginDAOImpl implements LoginDAO{
 	private static Logger log = Logger.getLogger(LoginDAOImpl.class);
 
 	@Override
-	public boolean newAccount() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean loginUser(User u) {	//user validation.
 		
 		try(Connection conn = ConnectionUtil.getConnection()){

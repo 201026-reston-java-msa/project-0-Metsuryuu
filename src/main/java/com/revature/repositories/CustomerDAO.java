@@ -11,5 +11,6 @@ public interface CustomerDAO {
 	public boolean withdraw(int id);
 	public boolean deposit(int id);
 	public boolean transfer(int id);
+	public boolean apply(int key, int type, int userid);
 	
 }

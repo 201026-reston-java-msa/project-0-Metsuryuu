@@ -123,7 +123,7 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public boolean withdraw(int id) {	//TODO Add the logger here, the standard logger works apparently.
+	public boolean withdraw(int id) {
 
 		try(Connection conn = ConnectionUtil.getConnection()){
 			
@@ -146,6 +146,7 @@ public class AdminDAOImpl implements AdminDAO{
 				statement.setBigDecimal(2, BigDecimal.valueOf(amount));	
 				
 				statement.execute();
+				log.info(amount+" has been withdrawn from account "+id+".");
 				
 				//Check to see that the account has been updated.
 				
@@ -221,6 +222,7 @@ public class AdminDAOImpl implements AdminDAO{
 				statement.setBigDecimal(2, BigDecimal.valueOf(amount));	
 				
 				statement.execute();
+				log.info(amount+" has been deposited into account "+id+".");
 				
 				//Check to see that the account has been updated.
 				
@@ -311,6 +313,7 @@ public class AdminDAOImpl implements AdminDAO{
 				statement.setBigDecimal(3, BigDecimal.valueOf(amount));	
 				
 				statement.execute();
+				log.info(amount+" has been transferred from account "+id+" to account "+id2+".");
 				
 				//Check to see that the account has been updated.
 				
@@ -374,6 +377,9 @@ public class AdminDAOImpl implements AdminDAO{
 		
 		System.out.println("Enter the ID of the account that you would like to cancel...");
 		Scanner sc = new Scanner(System.in);
+		if(!sc.hasNextInt()) {
+			throw new NumberFormatException();
+		}
 		int id = sc.nextInt();
 		
 		try(Connection conn = ConnectionUtil.getConnection()){
@@ -384,10 +390,13 @@ public class AdminDAOImpl implements AdminDAO{
 			statement.setInt(1, id);
 			statement.execute();
 			
+			log.info("Account "+id+" has been terminated.");
 			System.out.println("The account with the ID "+id+" has been terminated.");
 			
 		} catch (SQLException e) {
 			log.warn("Cancellation failed. Please try again.");
+		}catch(NumberFormatException e) {
+			log.warn("ID misinput: Only positive numerics are accepted.");
 		}
 		
 		return true;
@@ -456,6 +465,7 @@ public class AdminDAOImpl implements AdminDAO{
 				
 				statement.execute();
 				
+				log.info("Account status of account "+id+" has been updated.");
 				System.out.println("The account status has been updated.\nWould you like to act on another account? Y/n");
 				choice = sc.next();
 				

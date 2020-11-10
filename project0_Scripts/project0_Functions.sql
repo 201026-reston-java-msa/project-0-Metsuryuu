@@ -43,9 +43,11 @@ $$ LANGUAGE SQL;
 CREATE OR REPLACE FUNCTION project0.get_owned_accounts(_userid integer)
 RETURNS SETOF project0.accounts
 AS $$
-	SELECT a.accountid, a.balance, a.status, a.typeid	--possible error with the NUMERIC balance.
+
+	SELECT a.accountid, a.status, a.typeid, a.balance 	
 	FROM project0.accounts a, project0.owns_accounts oa
 	WHERE oa.userid =_userid AND a.accountid = oa.accountid;
+	
 $$ LANGUAGE SQL;
 
 --Can include select accounts by status or type as well, but not required.
@@ -61,23 +63,23 @@ AS $BODY$
 $BODY$
 
 --Insert a new account.
-CREATE PROCEDURE project0.insert_account(_userid integer,_status integer,_typeid integer,_balance NUMERIC(20,2))
+CREATE PROCEDURE project0.insert_account(_userid integer,_typeid integer,_balance NUMERIC(20,2))
 LANGUAGE SQL
 AS $BODY$
 	INSERT INTO project0.accounts(status,typeid,balance)
-	VALUES(_status,_typeid,_balance);
+	VALUES(1,_typeid,_balance);
 
 	--the value of owns_accounts needs to be inserted as well.
 	INSERT INTO project0.owns_accounts(userid,accountid)
 	VALUES(_userid,(SELECT currval('project0.accounts_accountid_seq')));
 $BODY$
 
---Insert a new joint account, overloaded procedure.
-CREATE PROCEDURE project0.insert_account(_user1 integer,_user2 integer,_status integer,_typeid integer,_balance NUMERIC(20,2))
+--Insert a new joint account.
+CREATE PROCEDURE project0.insert_joint_account(_user1 integer,_user2 integer,_typeid integer,_balance NUMERIC(20,2))
 LANGUAGE SQL
 AS $BODY$
 	INSERT INTO project0.accounts(status,typeid,balance)
-	VALUES(_status,_typeid,_balance);
+	VALUES(1,_typeid,_balance);	--Default the status to pending.
 
 	--two users means two entries into owns_accounts for the single accountId.
 	INSERT INTO project0.owns_accounts(userid,accountid)
@@ -141,19 +143,24 @@ CREATE PROCEDURE project0.approve_account(_accountid integer)
 LANGUAGE plpgsql
 AS $$
 	BEGIN
-		UPDATE project0.accounts a
-		SET a.status = 2
-		WHERE a.accountid = _accountid;
+		UPDATE project0.accounts 
+		SET status = 2
+		WHERE accountid = _accountid;
 	END
 $$
+
+DROP PROCEDURE project0.deny_account(_accountid integer);
 
 --Deny a pending account. I decided to remove it from the database for simplicity's sake.
 CREATE PROCEDURE project0.deny_account(_accountid integer)
 LANGUAGE plpgsql
 AS $$
 	BEGIN
-		DELETE FROM project0.accounts a
-		WHERE a.accountid = _accountid;
+		DELETE FROM project0.owns_accounts 
+		WHERE accountid = _accountid;
+		
+		DELETE FROM project0.accounts 
+		WHERE accountid = _accountid;
 	END
 $$
 

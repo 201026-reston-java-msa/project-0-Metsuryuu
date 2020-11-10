@@ -43,9 +43,11 @@ public class EmployeeService {
 		
 			switch(key) {
 				case 1:
+					log.info("Customers requested by "+employee.getUsername());
 					repository.findCustomers();
 					break;
 				case 2:
+					log.info("Accounts requested by "+employee.getUsername());
 					repository.findAccounts();
 					break;
 				case 3:

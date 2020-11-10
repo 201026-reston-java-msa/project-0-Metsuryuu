@@ -2,8 +2,8 @@ package com.revature.repositories;
 
 import com.revature.model.User;
 
-public interface LoginDAO {
+public interface RegisterDAO {
 	
-	public boolean loginUser(User u);
+	public boolean register(User u);
 
 }

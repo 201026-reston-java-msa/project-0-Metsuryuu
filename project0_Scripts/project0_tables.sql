@@ -25,7 +25,7 @@ CREATE TABLE project0.administrator(
 
 CREATE TABLE project0.users(
 
-	userId serial PRIMARY KEY,
+	userId serial PRIMARY KEY, --make a trigger to set this.
 	username varchar(20) NOT NULL UNIQUE,
 	pass varchar(20) NOT NULL,
 	first_name varchar(20) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE project0.roles(
 
 CREATE TABLE project0.accounts(
 
-	accountId serial PRIMARY KEY, 
+	accountId serial PRIMARY KEY, --trigger to set this
 	userId integer REFERENCES project0.owns_accounts(userId),
 	status integer REFERENCES project0.account_status(statusId),
 	typeId integer REFERENCES project0.account_type(typeId),

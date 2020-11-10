@@ -1,6 +1,5 @@
 package com.revature.services;
 
-import java.util.List;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
@@ -51,17 +50,21 @@ public class AdminService {
 			switch(key) {
 				case 1:
 					int findKey = 1;	//indicates find all customers.
+					log.info("Customers requested by "+admin.getUsername());
 					repository.findAll(findKey);
 					break;
 				case 2:
 					findKey = 2;
+					log.info("Employees requested by "+admin.getUsername());
 					repository.findAll(findKey);
 					break;
 				case 3:
 					findKey = 3;
+					log.info("Admins requested by "+admin.getUsername());
 					repository.findAll(findKey);
 					break;
 				case 4:
+					log.info("Accounts requested by "+admin.getUsername());
 					repository.findAllAccounts();
 					break;
 				case 5:

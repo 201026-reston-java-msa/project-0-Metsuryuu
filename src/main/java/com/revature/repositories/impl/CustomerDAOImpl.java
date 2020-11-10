@@ -117,6 +117,7 @@ public class CustomerDAOImpl implements CustomerDAO{
 				statement.setBigDecimal(2, BigDecimal.valueOf(amount));	
 				
 				statement.execute();
+				log.info(amount+" has been withdrawn from account "+id+".");
 				
 				//Check to see that the account has been updated.
 				
@@ -200,6 +201,7 @@ public class CustomerDAOImpl implements CustomerDAO{
 				statement.setBigDecimal(2, BigDecimal.valueOf(amount));	
 				
 				statement.execute();
+				log.info(amount+" has been deposited into account "+id+".");
 				
 				//Check to see that the account has been updated.
 				
@@ -291,6 +293,7 @@ public class CustomerDAOImpl implements CustomerDAO{
 				statement.setBigDecimal(3, BigDecimal.valueOf(amount));	
 				
 				statement.execute();
+				log.info(amount+" has been transferred from account "+id+" to account "+id2+".");
 				
 				//Check to see that the account has been updated.
 				
@@ -339,6 +342,58 @@ public class CustomerDAOImpl implements CustomerDAO{
 			log.warn("Only positive numerics are accepted, please try again.");
 		} catch (AccountException e) {
 			log.warn("You may only transfer funds from one of your accounts.");
+		}
+		
+		return false;
+	}
+
+	@Override
+	public boolean apply(int key, int type, int userid) {
+		
+		try(Connection conn = ConnectionUtil.getConnection()){
+			
+			String sql = "";
+			
+			if(key == 1) {
+				
+				sql = "CALL project0.insert_account(?,?,?)";
+				
+				CallableStatement statement = conn.prepareCall(sql);
+				
+				statement.setInt(1, userid);
+				statement.setInt(2, type);
+				statement.setBigDecimal(3, BigDecimal.ZERO);	//set balance to 0.
+				
+				statement.execute();
+				
+			}else if(key == 2) {
+				
+				System.out.println("Please enter the User ID of the other account holder.");
+				Scanner sc = new Scanner(System.in);
+				if(!sc.hasNextInt()) {
+					throw new NumberFormatException();
+				}
+				int user2 = sc.nextInt();
+				
+				sql = "CALL project0.insert_joint_account(?,?,?,?)";
+				
+				CallableStatement statement = conn.prepareCall(sql);
+				
+				statement.setInt(1, userid);
+				statement.setInt(2, user2);
+				statement.setInt(3, type);
+				statement.setBigDecimal(4, BigDecimal.ZERO);
+				
+				statement.execute();
+			}
+			
+			log.info("Account created: Status PENDING");
+			System.out.println("Your account has been made and is currently pending. Please wait for it to be approved.");
+			
+		} catch (SQLException e) {
+			log.warn("Application failed, please try again.");
+		}catch(NumberFormatException e) {
+			log.warn("Input incorrect: Only numerics accepted.");
 		}
 		
 		return false;

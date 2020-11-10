@@ -36,7 +36,8 @@ public class CustomerService {
 			System.out.println("1 - Withdraw from account");
 			System.out.println("2 - Deposit to account");
 			System.out.println("3 - Transfer between accounts");
-			System.out.println("4 - Logout");
+			System.out.println("4 - Apply for a new account");
+			System.out.println("5 - Logout");
 			
 			Scanner sc = new Scanner(System.in);
 			try {
@@ -87,11 +88,38 @@ public class CustomerService {
 					repository.transfer(accountid);
 					break;
 				case 4:
+					System.out.println("Are you looking to apply for a standard(1) or joint(2) account?");
+					try {
+						if(!sc.hasNextInt()) {
+							throw new NumberFormatException();
+						}
+						int account = sc.nextInt();
+						
+						System.out.println("Would you like to make a checking (1) or savings (2) account?");
+						
+						if(!sc.hasNextInt()) {
+							throw new NumberFormatException();
+						}
+						int type = sc.nextInt();
+						
+						if(account == 1) {
+							repository.apply(account, type, customer.getUserId());
+						}else if(account == 2) {
+							repository.apply(account, type, customer.getUserId());
+						}else {
+							throw new NumberFormatException();
+						}
+						
+					}catch(NumberFormatException e) {
+							log.warn("Improper choice selection, please only use 1 or 2.");
+					}
+					
+					break;
+				case 5:
 					customer = null;	//remove the user before logging out.
 					break;
 			}
-			if(key == 4) {	
-				sc.close();	//may need to remove.
+			if(key == 5) {	
 				return false;					
 			}
 		}

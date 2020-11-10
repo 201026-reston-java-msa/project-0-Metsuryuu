@@ -170,6 +170,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 				
 				statement.execute();
 				
+				log.info("Account status of account "+id+" has been updated.");
 				System.out.println("The account status has been updated.\nWould you like to act on another account? Y/n");
 				choice = sc.next();
 				

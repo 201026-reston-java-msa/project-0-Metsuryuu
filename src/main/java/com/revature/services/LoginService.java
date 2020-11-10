@@ -29,7 +29,7 @@ public class LoginService {
 		
 		switch(login_key) {
 			case 1:
-				newAccount();	//TODO might want to pass the created user up.
+				newAccount();	
 				break;
 			case 2:
 				loginUser();
@@ -41,8 +41,8 @@ public class LoginService {
 	
 	public boolean newAccount() {
 		
-		
-		
+		RegisterService register = new RegisterService();
+		register.register();
 		return false;
 	}
 	
