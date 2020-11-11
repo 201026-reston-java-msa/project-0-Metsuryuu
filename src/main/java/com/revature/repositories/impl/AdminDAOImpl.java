@@ -191,8 +191,10 @@ public class AdminDAOImpl implements AdminDAO{
 			
 		}catch(SQLException e) {
 			log.warn("Withdraw failed, please try again.", e);
+			return false;
 		}catch(NumberFormatException e) {
 			log.warn("Only positive numerics are accepted, please try again.");
+			return false;
 		}
 		
 		return false;

@@ -254,3 +254,16 @@ org.postgresql.util.PSQLException: ERROR: project0.withdraw(integer, numeric) is
 2020-11-10 18:09:20 INFO  LoginService:63 - tieyasu successfully logged in!
 
 2020-11-10 18:09:26 INFO  LoginDAOImpl:48 - Terminating... Have a nice day.
+2020-11-10 19:37:08 INFO  LoginService:63 - jcaesar successfully logged in!
+
+2020-11-10 19:37:10 INFO  EmployeeService:46 - Customers requested by jcaesar
+2020-11-10 19:37:15 INFO  EmployeeService:50 - Accounts requested by jcaesar
+2020-11-10 19:37:40 INFO  LoginService:63 - qroman successfully logged in!
+
+2020-11-10 19:39:55 INFO  EmployeeService:34 - Successfully added the new user cphilopator!
+2020-11-10 19:40:09 INFO  LoginService:63 - cphilopator successfully logged in!
+
+2020-11-10 19:40:21 INFO  CustomerDAOImpl:390 - Account created: Status PENDING
+2020-11-10 19:40:36 INFO  LoginService:63 - jcaesar successfully logged in!
+
+2020-11-10 19:40:49 INFO  LoginDAOImpl:48 - Terminating... Have a nice day.

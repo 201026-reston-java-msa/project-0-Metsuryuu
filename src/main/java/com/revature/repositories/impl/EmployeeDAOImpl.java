@@ -189,8 +189,10 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			
 		} catch (SQLException e) {
 			log.warn("Update failed, please try again later.");
+			return false;
 		}catch(NumberFormatException e) {
 			log.warn("Choice not valid, please try again.");
+			return false;
 		}
 		
 		return false;

@@ -12,14 +12,14 @@ import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 
 import com.revature.connection.ConnectionUtil;
-import com.revature.repositories.EmployeeDAO;
-import com.revature.repositories.impl.EmployeeDAOImpl;
+import com.revature.repositories.AdminDAO;
+import com.revature.repositories.impl.AdminDAOImpl;
 
-public class EmployeeServiceTest extends DBTestCase{
-
-	private EmployeeDAO eService;
+public class AdminServiceTest extends DBTestCase{
 	
-	public EmployeeServiceTest(String name) {
+	private AdminDAO aService;
+	
+	public AdminServiceTest(String name) {
 		super(name);
 		Properties prop = new Properties();
 		
@@ -43,30 +43,32 @@ public class EmployeeServiceTest extends DBTestCase{
 		return new FlatXmlDataSetBuilder().build(new FileInputStream(file));
 	}
 	
-	public void testFindCustomers() {
+	public void testFindAll() {
 		Connection conn = ConnectionUtil.getConnection();
-		eService = new EmployeeDAOImpl();
-		boolean actual = eService.findCustomers();
+		aService = new AdminDAOImpl();
+		boolean actual = aService.findAll(1);
+		actual = aService.findAll(2);
+		actual = aService.findAll(3);
+		
+		//if any of the above return false, at least one didn't work.
+		//The only difference is the SQL so the error would be noticeable.
 		
 		assertEquals(true, actual);
 	}
 	
 	public void testFindAccounts() {
 		Connection conn = ConnectionUtil.getConnection();
-		eService = new EmployeeDAOImpl();
-		boolean actual = eService.findAccounts();
+		aService = new AdminDAOImpl();
+		boolean actual = aService.findAllAccounts();
 		
 		assertEquals(true, actual);
 	}
 	
 	public void testPendingChoice() {
 		Connection conn = ConnectionUtil.getConnection();
-		eService = new EmployeeDAOImpl();
-		boolean actual = eService.pendingChoice();
+		aService = new AdminDAOImpl();
+		boolean actual = aService.pendingChoice();
 		
 		assertEquals(true, actual);
 	}
-	
-	//each test returns an AmbiguousTableNameException despite having specified the table in question.
-
 }

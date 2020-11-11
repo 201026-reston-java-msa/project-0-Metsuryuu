@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<USER userid='10' username='qroman' pass='qpass' first_name='Quincy' last_name='Roman' roleid='1'/>
+	<USER userid='12' username='jcaesar' pass='invicta' first_name='Julius' last_name='Caesar' roleid='2'/>
+	<USER userid='13' username='gkhan' pass='uraura' first_name='Genghis' last_name='Khan' roleid='1'/>
+	<USER userid='14' username='cshih' pass='cheklapkok' first_name='Ching' last_name='Shih' roleid='2'/>
+	<USER userid='16' username='nbonaparte' pass='petitmignon' first_name='Napolean' last_name='Bonaparte' roleid='3'/>
+	<USER userid='17' username='jdarc' pass='orleans' first_name='Joan' last_name='D`Arc' roleid='3'/>
+	<USER userid='18' username='mcihuacoatl' pass='lallorona' first_name='Maria' last_name='Cihuacoatl' roleid='3'/>
+	<USER userid='15' username='tieyasu' pass='edo' first_name='Ieyasu' last_name='Tokugawa' roleid='3'/>
+	<USER userid='20' username='Test' pass='test' first_name='Tester' last_name='Testerton' roleid='3'/>
+	
+	<PROJECT0.ACCOUNTS accountid='4' status='3' typeid='1' balance='315.44'/>
+	<PROJECT0.ACCOUNTS accountid='3' status='2' typeid='1' balance='1600'/>
+	<PROJECT0.ACCOUNTS accountid='1' status='2' typeid='1' balance='5000.5'/>
+	<PROJECT0.ACCOUNTS accountid='2' status='2' typeid='2' balance='530'/>
+	<PROJECT0.ACCOUNTS accountid='6' status='2' typeid='2' balance='1868'/>
+</dataset>
